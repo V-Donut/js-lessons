@@ -1,9 +1,9 @@
-const title = 'заголовок';
-let screens = 0;
-let screenPrice = 25;
-let rollback = 'Hello, world!';
-let fullPrice = 555;
-const adaptive = true;
+let title;
+let screens;
+let screenPrice;
+let rollback;
+let fullPrice;
+let adaptive;
 
 alert('Тестовое сообщение');
 console.log('Первая домашняя');
