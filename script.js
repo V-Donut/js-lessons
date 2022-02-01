@@ -1,9 +1,17 @@
-let title = 'Калькулятор вёрстки';
-let screens = 'Простые, Сложные, Интерактивные';
-let screenPrice = 15000;
+'use strict';
+
+let title = prompt('Как называется ваш проект?', 'Калькулятор верстки');
+let screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
+let screenPrice = +prompt('Сколько будет стоить данная работа?','10000');
 let rollback = 25;
-let fullPrice = 50000;
-let adaptive = true;
+let adaptive = confirm('Нужен ли адаптив на сайте?');
+
+let service1 = prompt('Какой дополнительный тип услуги нужен?');
+let servicePrice1 = +prompt('Сколько это будет стоить?');
+let service2 = prompt('Какой дополнительный тип услуги нужен?');
+let servicePrice2 = +prompt('Сколько это будет стоить?');
+
+let fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
 console.log(typeof title);
 console.log(typeof fullPrice);
@@ -18,5 +26,18 @@ screens = screens.toLocaleLowerCase();
 let screensArray = screens.split(', ');
 console.log(screensArray);
 
-let rollbackPercent = fullPrice * (rollback / 100);
-console.log(rollbackPercent);
+let rollbackSum = fullPrice * (rollback / 100);
+console.log(rollbackSum);
+
+let servicePercentPrice = Math.ceil(fullPrice - rollbackSum);
+console.log(servicePercentPrice);
+
+if (fullPrice >= 30000) {
+  console.log('Даем скидку в 10%');
+} else if (fullPrice >= 15000 && fullPrice < 30000) {
+  console.log('Даем скидку в 5%');
+} else if (fullPrice >= 0 && fullPrice < 15000) {
+  console.log('Скидка не предусмотрена');
+} else {
+  console.log('Что-то пошло не так');
+}
