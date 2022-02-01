@@ -40,25 +40,23 @@ const showTypeOf = function (variable) {
 };
 
 const getRollbackMessage = function () {
-  console.log(fullPrice);
   if (fullPrice >= 30000) {
-    console.log('Даем скидку в 10%');
+    return 'Даем скидку в 10%';
   } else if (fullPrice >= 15000 && fullPrice < 30000) {
-    console.log('Даем скидку в 5%');
+    return 'Даем скидку в 5%';
   } else if (fullPrice >= 0 && fullPrice < 15000) {
-   console.log('Скидка не предусмотрена');
+    return 'Скидка не предусмотрена';
   } else {
-    console.log('Что-то пошло не так');
+    return 'Что-то пошло не так';
   }
 };
 
-screens = screens.toLocaleLowerCase();
-let screensArray = screens.split(', ');
-console.log(screensArray);
-
-servicePercentPrice();
-getRollbackMessage();
+screens = screens.toLowerCase();
+console.log(screens);
 
 showTypeOf(title);
 showTypeOf(fullPrice);
 showTypeOf(adaptive);
+
+console.log(getRollbackMessage());
+console.log(servicePercentPrice(fullPrice, rollback));
