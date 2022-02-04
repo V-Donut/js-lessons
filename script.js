@@ -1,5 +1,17 @@
 'use strict';
 
+const isNumber = function (num) {
+  return !isNaN(parseFloat(num)) && isFinite(num) && num.toString().indexOf(' ') === -1;
+};
+
+const isString = function (str) {
+  if (!!!parseInt(str) == false || str == null) {
+    return false;
+  } else {
+    return str.trim();
+  }
+};
+
 const appData = {
   title: '',
   screens: '',
@@ -29,20 +41,10 @@ const appData = {
     }
   },
   asking: function () {
-    appData.title = appData.getUserAnswer('Как называется ваш проект?', 'Калькулятор верстки', appData.isString);
-    appData.screens = appData.getUserAnswer('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные', appData.isString);
-    appData.screenPrice = +appData.getUserAnswer('Сколько будет стоить данная работа?', '15000', appData.isNumber);
+    appData.title = appData.getUserAnswer('Как называется ваш проект?', 'Калькулятор верстки', isString);
+    appData.screens = appData.getUserAnswer('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные', isString);
+    appData.screenPrice = +appData.getUserAnswer('Сколько будет стоить данная работа?', '15000', isNumber);
     appData.adaptive = confirm('Нужен ли адаптив на сайте?');
-  },
-  isNumber: function (num) {
-    return !isNaN(parseFloat(num)) && isFinite(num) && num.toString().indexOf(' ') === -1;
-  },
-  isString: function (str) {
-    if (!!!parseInt(str) == false || str == null) {
-      return false;
-    } else {
-      return str.trim();
-    }
   },
   getUserAnswer: function (message, numb, check) {
     let n;
@@ -55,11 +57,11 @@ const appData = {
     let sum = 0;
     for (let i = 0; i < 2; i++) {
       if (i === 0) {
-        appData.service1 = appData.getUserAnswer('Какой дополнительный тип услуги нужен?', 'Метрика', appData.isString);
+        appData.service1 = appData.getUserAnswer('Какой дополнительный тип услуги нужен?', 'Метрика', isString);
       } else if (i === 1) {
-        appData.service2 = appData.getUserAnswer('Какой дополнительный тип услуги нужен?', 'Отправка форм', appData.isString);
+        appData.service2 = appData.getUserAnswer('Какой дополнительный тип услуги нужен?', 'Отправка форм', isString);
       }
-      sum += +appData.getUserAnswer('Сколько это будет стоить?', '1000', appData.isNumber);
+      sum += +appData.getUserAnswer('Сколько это будет стоить?', '1000', isNumber);
     }
     return sum;
   },
