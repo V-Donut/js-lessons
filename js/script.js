@@ -1,5 +1,26 @@
 'use strict';
 
+const title = document.getElementsByTagName('h1')[0].textContent;
+const buttons = document.getElementsByClassName('handler_btn');
+const calculation = buttons[0];
+const reset = buttons[1];
+const screenPlus = document.querySelector('.screen-btn');
+
+const percentItems = document.querySelectorAll('.other-items.percent');
+const numberItems = document.querySelectorAll('.other-items.number');
+
+const range = document.querySelector('.rollback [type="range"]');
+const rangeValue = document.querySelector('.rollback .range-value');
+
+const totalInputs = document.getElementsByClassName('total-input');
+const total = totalInputs[0];
+const totalCount = totalInputs[1];
+const totalCountOther = totalInputs[2];
+const totalFullCount = totalInputs[3];
+const totalCountRollback = totalInputs[4];
+
+let screens = document.querySelectorAll('.screen');
+
 const isNumber = function (num) {
   return !isNaN(parseFloat(num)) && isFinite(num) && num.toString().indexOf(' ') === -1;
 };
@@ -105,4 +126,4 @@ const appData = {
   }
 };
 
-appData.start();
+//appData.start();
