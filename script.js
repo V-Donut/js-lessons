@@ -14,71 +14,69 @@ const isString = function (str) {
 
 const appData = {
   title: '',
-  screens: '',
+  screens: [],
   screenPrice: 0,
   adaptive: true,
   rollback: 25,
   allServicePrices: 0,
   fullPrice: 0,
   servicePercentPrice: 0,
-  service1: '',
-  service2: '',
+  services: {},
   start: function () {
     appData.asking();
-    appData.allServicePrices = appData.getAllServicePrices();
-    appData.fullPrice = appData.getFullPrice();
-    appData.servicePercentPrice = appData.getServicePercentPrices();
-    appData.title = appData.getTitle();
+    appData.addPrices();
+    appData.getFullPrice();
+    appData.getServicePercentPrices();
+    appData.getTitle();
     appData.logger();
-  },
-  logger: function () {
-    for (let key in appData) {
-      if (typeof appData[key] === 'function') {
-        console.log('Метод: ' + key);
-      } else {
-        console.log('Ключ: ' + key);
-      } 
-    }
   },
   asking: function () {
     appData.title = appData.getUserAnswer('Как называется ваш проект?', 'Калькулятор верстки', isString);
-    appData.screens = appData.getUserAnswer('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные', isString);
-    appData.screenPrice = +appData.getUserAnswer('Сколько будет стоить данная работа?', '15000', isNumber);
+
+    for (let i = 0; i < 2; i++) {
+      let name = appData.getUserAnswer('Какие типы экранов нужно разработать?', '', isString);
+      let price = appData.getUserAnswer('Сколько будет стоить данная работа?', '', isNumber);
+      appData.screens.push({ id: i, name: name, price: price });
+    }
+
+    for (let i = 0; i < 2; i++) {
+      let name = appData.getUserAnswer('Какой дополнительный тип услуги нужен?', '', isString);
+      let price = appData.getUserAnswer('Сколько это будет стоить?', '', isNumber);
+      appData.services[name + '_' + i] = +price;
+    }
+
     appData.adaptive = confirm('Нужен ли адаптив на сайте?');
+  },
+  addPrices: function () {
+    appData.screenPrice = appData.screens.reduce(function(sum, item) {
+      sum += +item.price;
+      return sum;
+    }, 0);
+
+    for (let key in appData.services) {
+      appData.allServicePrices += appData.services[key];
+    }
   },
   getUserAnswer: function (message, numb, check) {
     let n;
     do {
         n = prompt(message, numb);
-    } while(!check(n));
+    } while (!check(n));
     return n.trim();
   },
-  getAllServicePrices: function () {
-    let sum = 0;
-    for (let i = 0; i < 2; i++) {
-      if (i === 0) {
-        appData.service1 = appData.getUserAnswer('Какой дополнительный тип услуги нужен?', 'Метрика', isString);
-      } else if (i === 1) {
-        appData.service2 = appData.getUserAnswer('Какой дополнительный тип услуги нужен?', 'Отправка форм', isString);
-      }
-      sum += +appData.getUserAnswer('Сколько это будет стоить?', '1000', isNumber);
-    }
-    return sum;
-  },
   getFullPrice: function () {
-    return parseFloat(appData.screenPrice) + appData.allServicePrices;
+    appData.fullPrice = parseFloat(appData.screenPrice) + appData.allServicePrices;
   },
   getTitle: function () {
     appData.title = appData.title.trim();
     if (!appData.title) {
-      return appData.title;
+      return;
     }
     appData.title = appData.title.charAt(0).toUpperCase() + appData.title.toLowerCase().slice(1);
-    return appData.title;
   },
   getServicePercentPrices: function () {
     let rollbackSum = appData.fullPrice * (appData.rollback / 100);
-    return Math.ceil(appData.fullPrice - rollbackSum);
+    appData.servicePercentPrice = Math.ceil(appData.fullPrice - rollbackSum);
   },
   getRollbackMessage: function (price) {
     if (price >= 30000) {
@@ -90,6 +88,20 @@ const appData = {
     } else {
       return 'Что-то пошло не так';
     }
+  },
+  logger: function () {
+    for (let key in appData) {
+      if (typeof appData[key] === 'function') {
+        console.log('Метод: ' + key);
+      } else {
+        console.log('Ключ: ' + key);
+      } 
+    }
+
+    // console.log(appData.fullPrice);
+    // console.log(appData.servicePercentPrice);
+    // console.log(appData.screens);
+    // console.log(appData.services);
   }
 };
 
