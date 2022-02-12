@@ -1,5 +1,24 @@
 'use strict';
 
+const title = document.getElementsByTagName('h1')[0];
+const calculation = document.getElementsByClassName('handler_btn')[0];
+const reset = document.getElementsByClassName('handler_btn')[1];
+const screenPlus = document.querySelector('.screen-btn');
+
+const percentItems = document.querySelectorAll('.other-items.percent');
+const numberItems = document.querySelectorAll('.other-items.number');
+
+const range = document.querySelector('.rollback [type="range"]');
+const rangeValue = document.querySelector('.rollback .range-value');
+
+const total = document.getElementsByClassName('total-input')[0];
+const totalCount = document.getElementsByClassName('total-input')[1];
+const totalCountOther = document.getElementsByClassName('total-input')[2];
+const totalFullCount = document.getElementsByClassName('total-input')[3];
+const totalCountRollback = document.getElementsByClassName('total-input')[4];
+
+let screens = document.querySelectorAll('.screen');
+
 const isNumber = function (num) {
   return !isNaN(parseFloat(num)) && isFinite(num) && num.toString().indexOf(' ') === -1;
 };
@@ -105,4 +124,4 @@ const appData = {
   }
 };
 
-appData.start();
+//appData.start();
