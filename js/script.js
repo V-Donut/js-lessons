@@ -32,6 +32,8 @@ const appData = {
   servicePercentPrice: 0,
   servicesPercent: {},
   servicesNumber: {},
+  hasCalculation: false,
+   
   init: function () {
     appData.addTitle();
     calculation.addEventListener('click', appData.start);
@@ -52,11 +54,16 @@ const appData = {
     appData.addPrices();
     //appData.logger();
     appData.showResult();
+    appData.hasCalculation = true;
   },
   changeRollback: function (event) {
     let percentage = event.target.value;
     rangeValue.textContent = percentage + '%';
     appData.rollback = percentage;
+    if (appData.hasCalculation) {
+      appData.addPrices();
+      appData.showResult();
+    }
   },
   showResult: function () {
     total.value = appData.screenPrice;
@@ -126,9 +133,11 @@ const appData = {
       return count;
     }, 0);
 
+    appData.servicePricesNumber = 0;
     for (let key in appData.servicesNumber) {
       appData.servicePricesNumber += appData.servicesNumber[key];
     }
+    appData.servicePricesPercent = 0;
     for (let key in appData.servicesPercent) {
       appData.servicePricesPercent += appData.screenPrice * (appData.servicesPercent[key] / 100);
     }
