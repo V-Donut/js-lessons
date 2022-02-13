@@ -92,7 +92,7 @@ const appData = {
       const selectName = select.options[select.selectedIndex].textContent;
       appData.screens.push({ 
         id: index, 
-        name:selectName, 
+        name: selectName, 
         price: +select.value * +input.value,
         count: +input.value
       });
@@ -120,7 +120,10 @@ const appData = {
     });
   },
   addScreenBlock: function () {
+    screens = document.querySelectorAll('.screen');
     const cloneScreen = screens[0].cloneNode(true);
+    const input = cloneScreen.querySelector('input');
+    input.value = '';
     screens[screens.length - 1].after(cloneScreen);
   },
   addPrices: function () {
