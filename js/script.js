@@ -60,12 +60,24 @@ const appData = {
     //this.logger();
   },
   disableFields: function () {
+    screenPlus.setAttribute('disabled', true);
+
     screens = document.querySelectorAll('.screen');
     screens.forEach((screen) => {
       const select = screen.querySelector('select');
       const input = screen.querySelector('input');
       select.setAttribute('disabled', true);
       input.setAttribute('disabled', true);
+    });
+
+    percentItems.forEach((item) => {
+      const check = item.querySelector('input[type=checkbox]');
+      check.setAttribute('disabled', true);
+    });
+
+    numberItems.forEach((item) => {
+      const check = item.querySelector('input[type=checkbox]');
+      check.setAttribute('disabled', true);
     });
   },
   showReset: function () {
@@ -226,12 +238,24 @@ const appData = {
     reset.style.display = 'none';
   },
   enableFields: function () {
+    screenPlus.removeAttribute('disabled');
+
     screens = document.querySelectorAll('.screen');
     screens.forEach((screen) => {
       const select = screen.querySelector('select');
       const input = screen.querySelector('input');
       select.removeAttribute('disabled');
       input.removeAttribute('disabled');
+    });
+
+    percentItems.forEach((item) => {
+      const check = item.querySelector('input[type=checkbox]');
+      check.removeAttribute('disabled');
+    });
+
+    numberItems.forEach((item) => {
+      const check = item.querySelector('input[type=checkbox]');
+      check.removeAttribute('disabled');
     });
   },
   logger: function () {
