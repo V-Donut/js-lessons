@@ -201,6 +201,7 @@ const appData = {
     this.servicesNumber = {};
   },
   removePrices: function () {
+    this.screens = [];
     this.screenPrice = 0;
     this.screenCount = 0;
     this.servicePricesNumber = 0;
